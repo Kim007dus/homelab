@@ -7,7 +7,7 @@ Alle certficaten genereer ik lokaal, dit is omdat vaak op verschillende vm's de 
 
 Alleen Proxmox:
 ```bash
-ansible-playbook ssl_certificate_management.yml --limit proxmox
+ansible-playbook -i inventories/hosts.ini ssl_certificate_management.yml --limit proxmox
 ```
 Proxmox herstarten `systemctl restart pveproxy`
 
@@ -22,6 +22,6 @@ http:
 ```
 ```bash
 # Specifieke service
-ansible-playbook ssl-certificate-management.yml --limit home_assistant
+ansible-playbook -i inventories/hosts.ini ssl_certificate_management.yml --limit home_assistant
 ```
 Home-assistant herstarten via ssh `ha core restart`
