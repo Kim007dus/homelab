@@ -1,6 +1,6 @@
 # Ansible Server Cert
 
-Alle certficaten genereer ik lokaal, dit is omdat vaak op verschillende vm's de mappen niet of moeilijk leesbaar zijn. Ook voorkom je zo fouten op de VM die het eigen certficaat management in de war brengen. Alleen de stappen in cert_deploy gaan richting de VM. 
+Alle certficaten genereer ik lokaal, dit is omdat vaak op verschillende vm's de mappen niet of moeilijk leesbaar zijn. Ook voorkom je zo fouten op de VM die het eigen certficaat management in de war brengen. Alleen de stappen in cert_deploy gaan richting de VM. ti
 
 
 👉 Runnnen
