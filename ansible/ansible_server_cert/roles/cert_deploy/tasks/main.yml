@@ -1,0 +1,9 @@
+- name: Check if deploy task file is defined
+  ansible.builtin.fail:
+    msg: "deploy_task_file not define for host {{ inventory_hostname }}"
+  when: deploy_task_file is not defined
+
+- name: Include host specific deploy tasks
+  ansible.builtin.include_tasks:
+    file: "{{ deploy_task_file }}"
+

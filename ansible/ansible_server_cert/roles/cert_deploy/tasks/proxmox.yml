@@ -1,0 +1,26 @@
+# Copy cert + key to Proxmox VE /ssl directory
+---
+
+- name: Copy certificate to temp location
+  ansible.builtin.copy:
+    src: "{{ server_crt_file }}"
+    dest: /tmp/pveproxy-ssl.pem
+    mode: '0640'
+    owner: root
+    group: www-data
+  become: true    
+ 
+- name: Copy key to temp location
+  ansible.builtin.copy:
+    src: "{{ server_key_file }}"
+    dest: /tmp/pveproxy-ssl.key
+    mode: '0640'
+    owner: root
+    group: www-data  
+  become: true
+
+- name: Move certificate to PVE location
+  shell: |
+    mv /tmp/pveproxy-ssl.pem /etc/pve/local/pveproxy-ssl.pem
+    mv /tmp/pveproxy-ssl.key /etc/pve/local/pveproxy-ssl.key
+  become: true

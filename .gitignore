@@ -1,0 +1,9 @@
+# ansible variables not to be committed to git
+group_vars/
+
+*.key
+*.pem
+*.crt
+*.csr
+*.cnf
+*.srl

@@ -1,0 +1,81 @@
+---
+- name: Copy Home-ca CA certificate to remote host
+  copy:
+    src: "files/home-ca.crt"
+    dest: "{{ ca_cert_file }}"
+    mode: '0644'
+    owner: root
+    group: root
+  become: true
+  delegate_to: localhost
+
+
+- name: Copy Home-ca CA key to remote host
+  copy:
+    src: "files/home-ca.key"
+    dest: "{{ ca_key_file }}"
+    mode: '0600'
+    owner: root
+    group: root
+  become: true
+  delegate_to: localhost
+
+
+- name: Generate private key
+  command: "openssl genrsa -out {{ server_key_file }} 2048"  
+  args:
+    creates: "{{ server_key_file }}" 
+  delegate_to: localhost
+
+- name: Set roles to read key local #This is needed to read the key file on localhost without becoming root on localhost
+  ansible.builtin.file:
+    path: "{{ server_key_file }}"
+    mode: '0640'
+    owner: kim
+    group: kim
+  delegate_to: localhost
+
+- name: Generate OpenSSL config for certificate  
+  ansible.builtin.copy:   
+    dest: "{{ server_ext_file }}"
+    content: |
+      [req]
+      distinguished_name = req_distinguished_name
+      req_extensions = v3_req
+      prompt = no
+
+      [req_distinguished_name]
+
+      [v3_req]
+      basicConstraints = CA:FALSE
+      keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+      extendedKeyUsage = serverAuth
+      subjectAltName = @alt_names
+
+      [alt_names]
+      {% for item in cert_dns_names %}
+      DNS.{{ loop.index }} = {{ item }}
+      {% endfor %}
+      {% for item in cert_ip_addresses %}
+      IP.{{ loop.index }} = {{ item }}
+      {% endfor %}    
+  delegate_to: localhost
+
+
+- name: Generate certificate signing request (CSR)  
+  command: >
+    openssl req -new -key {{ server_key_file }}
+    -subj "/CN={{ cert_common_name }}/O={{ cert_organization_name }}"
+    -out {{ server_csr_file }}
+    -config {{ server_ext_file }}
+    -extensions v3_req
+  delegate_to: localhost
+
+
+- name: Sign certificate with root-CA  
+  command: >
+    openssl x509 -req -in {{ server_csr_file }}
+    -CA {{ cert_dir }}/home-ca.crt -CAkey {{ cert_dir }}/home-ca.key -CAcreateserial
+    -out {{ server_crt_file }} -days 825 -sha256 
+    -copy_extensions copy
+  delegate_to: localhost

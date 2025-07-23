@@ -1,0 +1,17 @@
+---
+- name: SSL Certificate Management Playbook
+  hosts: all
+  gather_facts: false
+  become: true
+  
+  pre_tasks:
+    - name: Test connection
+      debug:
+        msg: "Successfully connected to {{ inventory_hostname }}"
+
+  roles:
+    - cert_generator
+    - cert_deploy
+
+
+
