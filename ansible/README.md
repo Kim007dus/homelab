@@ -26,7 +26,8 @@ Automatiseert het aanmaken en deployen van SSL certificaten binnen het homelab m
 - *(Uitbreidbaar voor andere services)*
 
 **Usage:**
-Home-Assistant: 
+
+*Home-Assistant:*
 - SSH add-on installeren
 - configuration.yaml aanpassen:
 ```yaml
@@ -35,12 +36,14 @@ http:
   ssl_key: /config/privkey.pem
 ```
 ```bash
-# Specifieke service
+#Run playbook
 ansible-playbook -i inventories/hosts.ini ssl_certificate_management.yml --limit home_assistant
 ```
 Home-assistant herstarten via ssh `ha core restart`
 
+*Proxmox:*
 ```bash
+#Run playbook
 ansible-playbook -i inventories/hosts.ini ssl_certificate_management.yml --limit proxmox
 ```
 Proxmox herstarten `systemctl restart pveproxy`
