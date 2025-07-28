@@ -85,14 +85,20 @@ These choices ensure my smart home is secure, privacy-friendly, and as independe
 
 ## Automations
 
+### [Home and Away](./Home%20or%20Away/)
+
+Automations and settings to track if I am at home or away from home. 
+See the [README](./Home%20or%20Away/README.md) for details.
+
 ### [Vacuum Robot](./Vacuum%20Robot/)
 
 Automations for smart control of my robot vacuum, depending on presence and time.  
-See the [README in the Vacuum Robot folder](./Vacuum%20Robot/README.md) for details.
+See the [README](./Vacuum%20Robot/README.md) for details.
 
-### [Lights](./Lights/) *(in progress)*
+### [Lights](./Lights/) 
 
-Automations for smart lighting will be added here.
+Automations for smart lighting
+See the [README](./Lights/README.md) for details.
 
 ---
 
