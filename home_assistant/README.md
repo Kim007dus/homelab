@@ -23,12 +23,14 @@ Here you'll find all my automations, helpers, and integrations for a smarter, sa
 ## Purpose & Learning Goals
 
 **Why this directory?**
+
 - To automate and make my home smarter with Home Assistant.
 - To learn YAML, automation logic, and integrations.
 - To apply best practices for scalable, reusable automations.
 - To connect with other homelab components (like Ansible, monitoring, PKI).
 
 **Learning goals:**
+
 - Set up more complex automations with conditional logic.
 - Use helpers (`input_boolean`, `input_datetime`, etc.) for status and state management.
 - Integrate different devices and platforms.
@@ -95,7 +97,7 @@ See the [README](./home_or_away/README.md) for details.
 Automations for smart control of my robot vacuum, depending on presence and time.  
 See the [README](./vacuum_robot/README.md) for details.
 
-### [Lights](./lights/) 
+### [Lights](./lights/)
 
 Automations for smart lighting
 See the [README](./lights/README.md) for details.

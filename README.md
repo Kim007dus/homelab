@@ -20,6 +20,7 @@ Welcome to my homelab documentation. This repository contains all configurations
 ## 1. Overview & Architecture
 
 ### 🎯 Homelab Goals
+
 - **Learning**: Hands-on experience with Ansible, Home Assistant, VMs, Linux, Kubernetes
 - **Automation**: Infrastructure as Code principles
 - **Self-hosting**: Running my own services for privacy and control
@@ -39,9 +40,11 @@ Welcome to my homelab documentation. This repository contains all configurations
 ## 3. Network Configuration
 
 ### 📡 VLAN Layout
+
 planned
 
 ### 🔒 Firewall Rules
+
 planned
 
 ---
@@ -49,10 +52,12 @@ planned
 ## 4. Virtualization Platform
 
 ### 🖥️ Proxmox VE Setup
+
 - **Version**: Proxmox VE 8.4.1
 Currently, I have a standard installation on my NUC Mini PC.
 
-#### Key VMs:
+#### Key VMs
+
 - [**Home Assistant**](./home_assistant/README.md): Smart home automation 
 - **Kubernetes Nodes**: K8s cluster
 - **Linux Arch**: To gain more hands-on Linux experience, I want to install a VM from scratch with Arch Linux. *planned*
@@ -62,15 +67,17 @@ Currently, I have a standard installation on my NUC Mini PC.
 ## 5. Container Orchestration
 
 ### ☸️ Kubernetes Cluster
+
 - **Distribution**: K3s (lightweight)
 - **Nodes**: 1 master node + 1 worker node
 - **Storage**: planned
 - **Networking**: planned
 - **Load Balancer**: planned
 
-#### Core Services:
+#### Core Services
+
 - **Ingress**: planned
-- **DNS**: planned 
+- **DNS**: planned
 - **Secrets**: planned
 - **Monitoring**: planned
 
@@ -78,13 +85,16 @@ Currently, I have a standard installation on my NUC Mini PC.
 
 ## 6. Automation & Configuration Management
 
-### 🤖 Ansible 
+### 🤖 Ansible
+
 **Location**: [`/ansible/`](./ansible/)
 
 **Current Playbooks:**
+
 - **SSL Certificate Management**: Self-signed CA for homelab services
 
 **Planned Additions:**
+
 - ArgoCD deployment automation
 
 ---
@@ -92,12 +102,14 @@ Currently, I have a standard installation on my NUC Mini PC.
 ## 7. Monitoring & Observability
 
 ### 📊 Monitoring Stack
+
 - **Metrics**: Prometheus + Grafana (planned)
 - **Logging**: planned
 - **Tracing**: planned
 - **Alerting**: AlertManager + Discord webhooks (planned)
 
 ### 📈 Key Dashboards
+
 Planned
 
 ---
@@ -105,11 +117,13 @@ Planned
 ## 8. Security & Certificates
 
 ### 🔐 PKI Infrastructure
+
 - **Root CA**: Home-CA for internal services
 - **Automated deployment**: Via Ansible automation
 - **Certificate rotation**: planned
 
 ### 🛡️ Security Measures
+
 - **Access control**: SSH Hardening & 2FA
 - planned
 
@@ -118,6 +132,7 @@ Planned
 ## 9. Backup & Disaster Recovery
 
 ### 💾 Backup Strategy
+
 - **3-2-1 Rule**: 3 copies, 2 different media, 1 offsite
 - **VM Backups**: Proxmox Backup Server (planned)
 - **Application Data**: Home Assistant backup to personal cloud, rest is planned
@@ -127,6 +142,7 @@ Planned
 ## 10. CI/CD & GitOps
 
 ### 🚀 GitOps Workflow
+
 - **FluxCD**: Kubernetes application deployment (planned)
 - **Git**: Source of truth for all configurations
 - **Testing**: Automated testing pipeline (planned)

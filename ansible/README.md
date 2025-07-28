@@ -12,15 +12,18 @@ This repository contains all Ansible automations for my homelab environment. The
 ## 📋 Current Playbooks
 
 ### SSL Certificate Management
+
 Automates the creation and deployment of SSL certificates within the homelab using a self-signed Root CA (Home-CA).
 
 **Benefits:**
+
 - No browser warnings about insecure connections
 - Full HTTPS coverage within the local network
 - Centralized certificate management
 - Automatic deployment to various services
 
 **Supported services:**
+
 - Home Assistant
 - Proxmox VE
 - *(Extendable for other services)*
@@ -28,24 +31,30 @@ Automates the creation and deployment of SSL certificates within the homelab usi
 **Usage:**
 
 *Home Assistant:*
+
 - Install SSH add-on
 - Adjust configuration.yaml:
+
 ```yaml
 http:
   ssl_certificate: /config/fullchain.pem
   ssl_key: /config/privkey.pem
 ```
+
 ```bash
 # Run playbook
 ansible-playbook -i inventories/hosts.ini ssl_certificate_management.yml --limit home_assistant
 ```
+
 Restart Home Assistant via ssh: `ha core restart`
 
 *Proxmox:*
+
 ```bash
 # Run playbook
 ansible-playbook -i inventories/hosts.ini ssl_certificate_management.yml --limit proxmox
 ```
+
 Restart Proxmox: `systemctl restart pveproxy`
 
 ## 📁 Repository Structure
@@ -85,18 +94,21 @@ ansible/
 ## ⚙️ Setup
 
 1. **Clone repository:**
+
    ```bash
    git clone <repository-url>
    cd ansible
    ```
 
 2. **Configure inventory:**
+
    ```bash
    cp inventory/hosts.ini.example inventory/hosts.ini
    # Edit with your own hosts
    ```
 
 3. **Test connectivity:**
+
    ```bash
    ansible all -m ping
    ```
