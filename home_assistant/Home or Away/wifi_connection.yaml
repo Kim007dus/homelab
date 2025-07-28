@@ -1,0 +1,29 @@
+alias: Wifi connected 
+description: ""
+triggers:
+  - entity_id: sensor.androidphone_wi_fi_connection
+    trigger: state
+actions:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ 'name of wifi network at home' in states('sensor.androidphone_wi_fi_connection') }}"
+        sequence:
+          - data:
+              topic: location/person_wifi
+              payload: home
+              retain: true
+            action: mqtt.publish
+    default:
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 30
+          milliseconds: 0
+      - condition: template
+        value_template: "{{ 'name of wifi network at home' not in states('sensor.androidphone_wi_fi_connection') }}"
+      - data:
+          topic: location/person_wifi
+          payload: not_home
+          retain: true
+        action: mqtt.publish
