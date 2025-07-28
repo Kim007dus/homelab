@@ -9,6 +9,7 @@ Here you'll find all my automations, helpers, and integrations for a smarter, sa
 
 - [Purpose & Learning Goals](#purpose--learning-goals)
 - [Structure](#structure)
+- [Hardware & Privacy Choices](#️-hardware--privacy-choices)
 - [Automations](#automations)
   - [Vacuum Robot](./Vacuum%20Robot/)
   - [Lights](./Lights/) *(in progress)*
@@ -51,6 +52,34 @@ home_assistant/
 └── Woonkamer/               # Automations for the living room (in progress)
     └── README.md
 ```
+
+---
+
+## 🛠️ Hardware & Privacy Choices
+
+To make my smart home as robust, private, and future-proof as possible, I made several conscious hardware and architecture choices:
+
+- **Smart Plugs & Devices:**  
+  I use various smart plugs and sensors, with a preference for devices that support the Matter protocol. This ensures maximum local control, interoperability, and future-proofing, regardless of brand.
+
+- **Matter Protocol:**  
+  By choosing Matter, I can run almost everything locally, without being dependent on a vendor’s cloud. This also makes it easier to share or migrate devices without being tied to a non-European cloud provider.
+
+- **Local-First & Privacy:**  
+  I avoid cloud dependencies where possible. Device control and automations run locally, so my home remains functional even without internet access.
+
+- **Backups:**  
+  Home Assistant backups are sent via WebDAV to a specific European cloud provider, ensuring my data stays within the EU and complies with privacy regulations.
+
+- **Remote Access:**  
+  For secure access outside my home, I use the Tailscale add-on. I’ve created a dedicated non-admin user for this, so I can connect to Home Assistant remotely without exposing my entire network or using third-party cloud services.
+
+- **Dedicated IoT Network:**  
+  All smart devices are connected to a separate IoT VLAN/network. This increases security and ensures that even if a device is compromised, it cannot access my main network.
+
+---
+
+These choices ensure my smart home is secure, privacy-friendly, and as independent as possible from external parties.
 
 ---
 
