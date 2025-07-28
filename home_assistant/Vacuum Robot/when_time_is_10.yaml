@@ -1,0 +1,23 @@
+triggers:
+  - trigger: time
+    at: "10:00:00"
+conditions:
+  - condition: state
+    entity_id: person.kim
+    state: not_home
+actions:
+  - sequence:
+      - device_id: *
+        domain: select
+        entity_id: *
+        type: select_option
+        option: sweeping
+      - device_id: *
+        domain: vacuum
+        entity_id: *
+        type: clean
+      - action: input_boolean.turn_on
+        data: {}
+        target:
+          entity_id: input_boolean.cleaned_at_10_am_today
+mode: single

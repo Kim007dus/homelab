@@ -1,27 +1,25 @@
 # Ansible Server Cert
 
-Alle certficaten genereer ik lokaal, dit is omdat vaak op verschillende vm's de mappen niet of moeilijk leesbaar zijn. Ook voorkom je zo fouten op de VM die het eigen certficaat management in de war brengen. Alleen de stappen in cert_deploy gaan richting de VM. ti
+I generate all certificates locally, because on many VMs the directories are not always accessible or readable. This also prevents errors on the VM that could interfere with its own certificate management. Only the steps in cert_deploy are executed on the VM.
 
+👉 Running
 
-👉 Runnnen
-
-Alleen Proxmox:
+Only Proxmox:
 ```bash
 ansible-playbook -i inventories/hosts.ini ssl_certificate_management.yml --limit proxmox
 ```
-Proxmox herstarten `systemctl restart pveproxy`
+Restart Proxmox: `systemctl restart pveproxy`
 
-Alleen Home-Assistant:
-Home-Assistant: 
-- SSH add-on installeren
-- configuration.yaml aanpassen:
+Only Home Assistant:
+- Install SSH add-on
+- Adjust configuration.yaml:
 ```yaml
 http:
   ssl_certificate: /config/fullchain.pem
   ssl_key: /config/privkey.pem
 ```
 ```bash
-# Specifieke service
+# Specific service
 ansible-playbook -i inventories/hosts.ini ssl_certificate_management.yml --limit home_assistant
 ```
-Home-assistant herstarten via ssh `ha core restart`
+Restart Home Assistant via ssh: `ha core restart`

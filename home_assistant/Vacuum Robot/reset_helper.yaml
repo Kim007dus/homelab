@@ -1,0 +1,10 @@
+description: Reset the 10am cleaning tracker at midnight
+triggers:
+  - trigger: time
+    at: "00:00:00"
+actions:
+  - target:
+      entity_id: input_boolean.cleaned_at_10_am_today
+    action: input_boolean.turn_off
+    data: {}
+mode: single
