@@ -1,0 +1,43 @@
+escription: ""
+triggers:
+  - entity_id:
+      - sensor.eve_energy_20ebo8301_power
+    for:
+      hours: 0
+      minutes: 2
+      seconds: 0
+    below: 1
+    trigger: numeric_state
+conditions:
+  - condition: state
+    entity_id: input_select.wasmachine_status
+    state: Bezig
+actions:
+  - action: notify.mobile_app_androidphone
+    metadata: {}
+    data:
+      message: 🏁 Hup hup leeg je wasmachine
+  - data:
+      option: Klaar
+    action: input_select.select_option
+    target:
+      entity_id: input_select.wasmachine_status
+  - if:
+      - condition: state
+        entity_id: binary_sensor.door_sensor_door
+        state: "off"
+      - condition: state
+        entity_id: person.kim
+        state: home
+    then:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          rgb_color:
+            - 165
+            - 29
+            - 45
+          brightness_pct: 73
+        target:
+          entity_id: light.smart_rgbtw_bulb
+mode: single

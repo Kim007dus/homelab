@@ -1,64 +1,71 @@
 # Homelab Automation with Ansible
 
-Deze repository bevat alle Ansible automatiseringen voor mijn homelab omgeving. Het doel is om consistente, herhaalbare deployments en configuraties mogelijk te maken.
+This repository contains all Ansible automations for my homelab environment. The goal is to enable consistent, repeatable deployments and configurations.
 
-## 🎯 Doelstellingen
+## 🎯 Objectives
 
-- **Automatisering**: Handmatige configuratie vervangen door code
-- **Consistentie**: Uniforme setup binnen alle homelab servers
-- **Documentatie**: Infrastructure as Code principes toepassen
-- **Schaalbaarheid**: Eenvoudig nieuwe services toevoegen
+- **Automation**: Replace manual configuration with code
+- **Consistency**: Uniform setup across all homelab servers
+- **Documentation**: Apply Infrastructure as Code principles
+- **Scalability**: Easily add new services
 
-## 📋 Huidige Playbooks
+## 📋 Current Playbooks
 
 ### SSL Certificate Management
-Automatiseert het aanmaken en deployen van SSL certificaten binnen het homelab met behulp van een self-signed Root CA (Home-CA).
 
-**Voordelen:**
-- Geen browser waarschuwingen over onveilige verbindingen
-- Volledige HTTPS coverage binnen het lokale netwerk
-- Gecentraliseerd certificaatbeheer
-- Automatische deployment naar verschillende services
+Automates the creation and deployment of SSL certificates within the homelab using a self-signed Root CA (Home-CA).
 
-**Ondersteunde services:**
+**Benefits:**
+
+- No browser warnings about insecure connections
+- Full HTTPS coverage within the local network
+- Centralized certificate management
+- Automatic deployment to various services
+
+**Supported services:**
+
 - Home Assistant
 - Proxmox VE
-- *(Uitbreidbaar voor andere services)*
+- *(Extendable for other services)*
 
 **Usage:**
 
-*Home-Assistant:*
-- SSH add-on installeren
-- configuration.yaml aanpassen:
+*Home Assistant:*
+
+- Install SSH add-on
+- Adjust configuration.yaml:
+
 ```yaml
 http:
   ssl_certificate: /config/fullchain.pem
   ssl_key: /config/privkey.pem
 ```
+
 ```bash
-#Run playbook
+# Run playbook
 ansible-playbook -i inventories/hosts.ini ssl_certificate_management.yml --limit home_assistant
 ```
-Home-assistant herstarten via ssh `ha core restart`
+
+Restart Home Assistant via ssh: `ha core restart`
 
 *Proxmox:*
+
 ```bash
-#Run playbook
+# Run playbook
 ansible-playbook -i inventories/hosts.ini ssl_certificate_management.yml --limit proxmox
 ```
-Proxmox herstarten `systemctl restart pveproxy`
 
+Restart Proxmox: `systemctl restart pveproxy`
 
-
-## 📁 Repository Structuur
+## 📁 Repository Structure
 
 ```
 ansible/
-├── README.md                               # Dit bestand
+├── README.md                               # This file
 ├── ansible-server-certs/
-    └──  ssl-certificate-management.yml     # SSL certificaat automation playbook
+    └──  ssl-certificate-management.yml     # SSL certificate automation playbook
     └── roles/
-        └── cert_generator/                 # SSL certificaat role
+        └── cert_generator/                 # SSL certificate role
             ├── tasks/
             ├── files/
         └── cert_deploy/
@@ -69,48 +76,51 @@ ansible/
     └── inventory/
             └── hosts.ini                   # Homelab hosts
     └── group_vars/
-        └── home_assistant.yml              # HA specifieke variabelen - niet in deze repo
-        └── proxmox.yml                     # Proxmox specifieke variabelen - niet in deze repo
+        └── home_assistant.yml              # HA specific variables - not in this repo
+        └── proxmox.yml                     # Proxmox specific variables - not in this repo
 ```
 
-## 🚀 Geplande Uitbreidingen
+## 🚀 Planned Extensions
 
-- [ ] **ArgoCD Deployment op mijn cluster**: GitOps voor Kubernetes workloads
+- [ ] **ArgoCD Deployment on my cluster**: GitOps for Kubernetes workloads
 
 ## 🔧 Prerequisites
 
 - Ansible >= 2.9
-- SSH toegang tot alle target hosts
-- Root/sudo privileges op target systems
-- Python >= 3.6 op control node
+- SSH access to all target hosts
+- Root/sudo privileges on target systems
+- Python >= 3.6 on control node
 
 ## ⚙️ Setup
 
 1. **Clone repository:**
+
    ```bash
    git clone <repository-url>
    cd ansible
    ```
 
-2. **Configureer inventory:**
+2. **Configure inventory:**
+
    ```bash
    cp inventory/hosts.ini.example inventory/hosts.ini
-   # Edit met je eigen hosts
+   # Edit with your own hosts
    ```
 
-3. **Test connectiviteit:**
+3. **Test connectivity:**
+
    ```bash
    ansible all -m ping
    ```
 
-## 🤝 Bijdragen
+## 🤝 Contributing
 
-Dit is mijn persoonlijke homelab project, maar suggesties en verbeteringen zijn altijd welkom via issues of pull requests.
+This is my personal homelab project, but suggestions and improvements are always welcome via issues or pull requests.
 
 ## 📝 License
 
-MIT License - zie [LICENSE](LICENSE) bestand voor details.
+MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
-> **Note**: Dit repository bevat configuraties specifiek voor mijn homelab omgeving, veel variabelen, zoals group_vars & files/certs staan natuurlijk niet online. Pas deze variabelen en configuraties aan voordat je ze in je eigen omgeving gebruikt.
+> **Note**: This repository contains configurations specific to my homelab environment. Many variables, such as group_vars & files/certs, are of course not online. Adjust these variables and configurations before using them in your own environment.

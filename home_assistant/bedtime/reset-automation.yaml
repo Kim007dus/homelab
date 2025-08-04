@@ -1,0 +1,12 @@
+alias: Reset bedtijd automation at 10am
+description: ""
+triggers:
+  - trigger: time
+    at: "10:00:00"
+conditions: []
+actions:
+  - action: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.bedtijd_automation_status
+mode: single

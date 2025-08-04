@@ -1,0 +1,20 @@
+description: ""
+triggers:
+  - trigger: time
+    at: "01:00:00"
+conditions:
+  - condition: state
+    entity_id: person.kim
+    state: not_home
+actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+        - light.mini_smart_wi_fi_plug
+        - light.aqara_smart_wall_switch
+        - light.aqara_smart_wall_switch_light_1
+        - light.aqara_smart_wall_switch_light_2
+        - light.mini_smart_wi_fi_plug_2
+mode: single

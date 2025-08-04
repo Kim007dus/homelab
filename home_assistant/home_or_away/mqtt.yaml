@@ -1,0 +1,4 @@
+device_tracker:
+ - name: "person_wifi"
+   state_topic: 'location/person_wifi'
+   source_type: router

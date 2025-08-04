@@ -1,0 +1,43 @@
+alias: Bed - alles uit
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - light.mini_smart_wi_fi_plug_2
+    from: null
+    to: "on"
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+conditions:
+  - condition: state
+    entity_id: person.kim
+    state: home
+actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+        - light.aqara_smart_wall_switch
+        - light.aqara_smart_wall_switch_light_1
+        - light.aqara_smart_wall_switch_light_2
+        - light.mini_smart_wi_fi_plug
+  - action: media_player.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+        - media_player.lg_webos_tv_oled55c9pla
+        - media_player.huiskamerchromecast
+  - action: media_player.media_stop
+    metadata: {}
+    data: {}
+    target:
+      entity_id: media_player.huiskamer
+  - action: notify.mobile_app_sm_s921b
+    metadata: {}
+    data:
+      message: ❤️😴 slaap lekker
+mode: single

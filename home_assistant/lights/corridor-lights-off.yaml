@@ -1,0 +1,19 @@
+alias: Na 10 minuten altijd ganglicht uit
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - input_boolean.ganglicht_aan
+    to: "on"
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+conditions: []
+actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.aqara_smart_wall_switch
+mode: single

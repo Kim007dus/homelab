@@ -1,0 +1,32 @@
+description: ""
+triggers:
+  - trigger: zone
+    entity_id: device_tracker.person1
+    zone: zone.onderwerg_naar_huis
+    event: enter
+conditions:
+  - condition: state
+    entity_id: person.kim
+    state: home
+actions:
+  - action: media_player.turn_off
+    metadata: {}
+    data: {}
+    target:
+      device_id:
+        - *
+        - *
+  - action: media_player.media_stop
+    metadata: {}
+    data: {}
+    target:
+      device_id: *
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+        - light.aqara_smart_wall_switch_light_2
+        - light.aqara_smart_wall_switch_light_1
+        - light.mini_smart_wi_fi_plug_2
+mode: single

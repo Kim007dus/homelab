@@ -1,0 +1,23 @@
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.door_sensor_door
+    from: "off"
+    to: "on"
+conditions:
+  - condition: state
+    entity_id: input_select.wasmachine_status
+    state: Klaar
+actions:
+  - data:
+      option: "Off"
+    action: input_select.select_option
+    target:
+      entity_id: input_select.wasmachine_status
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.smart_rgbtw_bulb
+mode: single

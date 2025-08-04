@@ -1,0 +1,40 @@
+alias: "Wc "
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.pir_sensor_occupancy
+    from: null
+    to: null
+conditions: []
+actions:
+  - choose:
+      - conditions:
+          - condition: state
+            entity_id: binary_sensor.pir_sensor_occupancy
+            state: "on"
+        sequence:
+          - action: light.turn_on
+            metadata: {}
+            data:
+              rgb_color:
+                - 255
+                - 255
+                - 0
+            target:
+              entity_id: light.smart_rgbtw_bulb
+      - conditions:
+          - condition: state
+            entity_id: binary_sensor.pir_sensor_occupancy
+            state: "off"
+            for:
+              hours: 0
+              minutes: 2
+              seconds: 0
+        sequence:
+          - action: light.turn_off
+            metadata: {}
+            data: {}
+            target:
+              entity_id: light.smart_rgbtw_bulb
+mode: single

@@ -1,0 +1,27 @@
+alias: Sunset 
+description: ""
+triggers:
+  - trigger: sun
+    event: sunset
+    offset: "-00:45:00"
+conditions: []
+actions:
+  - if:
+      - condition: state
+        entity_id: person.kim
+        state: home
+    then:
+      - action: light.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id:
+            - light.aqara_smart_wall_switch_light_1
+            - light.mini_smart_wi_fi_plug
+    else:
+      - action: light.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.mini_smart_wi_fi_plug
+mode: single

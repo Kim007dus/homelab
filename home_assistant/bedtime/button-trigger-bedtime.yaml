@@ -1,0 +1,24 @@
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - event.aqara_smart_wall_switch_button_5_2
+conditions:
+  - condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+    after: "22:00:00"
+    before: "06:00:00"
+actions:
+  - action: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.mini_smart_wi_fi_plug_2
+mode: single

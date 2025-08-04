@@ -1,0 +1,14 @@
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - light.aqara_smart_wall_switch
+    from: "on"
+    to: "off"
+conditions: []
+actions:
+  - action: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.ganglicht_aan

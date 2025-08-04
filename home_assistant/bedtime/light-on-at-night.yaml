@@ -1,0 +1,18 @@
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.sm_s921b_is_charging
+    from: "on"
+    to: "off"
+conditions:
+  - condition: state
+    state: "on"
+    entity_id: input_boolean.bedtijd_automation_status
+actions:
+  - action: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.mini_smart_wi_fi_plug_2
+mode: single

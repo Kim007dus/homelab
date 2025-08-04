@@ -1,0 +1,24 @@
+alias: Slapen
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.sm_s921b_is_charging
+    from: null
+    to: "on"
+conditions:
+  - condition: state
+    entity_id: light.mini_smart_wi_fi_plug_2
+    state: "on"
+actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.mini_smart_wi_fi_plug_2
+  - action: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.bedtijd_automation_status
+mode: single

@@ -1,0 +1,22 @@
+escription: ""
+triggers:
+  - entity_id:
+      - sensor.eve_energy_20ebo8301_power
+    above: 5
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+    trigger: numeric_state
+conditions:
+  - condition: state
+    entity_id: input_select.wasmachine_status
+    state: "Off"
+actions:
+  - data:
+      option: Bezig
+    action: input_select.select_option
+    target:
+      entity_id: input_select.wasmachine_status
+mode: single

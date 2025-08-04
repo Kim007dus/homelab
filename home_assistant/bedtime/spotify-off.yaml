@@ -1,0 +1,28 @@
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - input_boolean.bedtijd_automation_status
+    from: "off"
+    to: "on"
+  - trigger: state
+    entity_id:
+      - binary_sensor.sm_s921b_is_charging
+    from: null
+    to: "on"
+conditions:
+  - condition: state
+    entity_id: media_player.spotify
+    state: playing
+actions:
+  - delay:
+      hours: 0
+      minutes: 30
+      seconds: 0
+      milliseconds: 0
+  - action: media_player.media_pause
+    metadata: {}
+    data: {}
+    target:
+      entity_id: media_player.spotify
+mode: single
