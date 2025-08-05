@@ -19,3 +19,17 @@ Currently I have 1 Matter smart plug from Eve that also monitors energy consumpt
 - Dynamic energy contract allows price-based consumption optimization
 - Real-time monitoring helps identify energy-hungry devices
 - Potential cost savings by shifting usage to cheaper hours
+
+## Washing Machine Power Control
+
+I noticed in the dashboard that my washing machine consumes power even when it's not running. Since I have a smart plug on it, I thought I could do something with that, but I don't want to grab my phone every time to turn on the power when I start the washing machine. Then I remembered I have a door sensor on my washing machine, so I created an automation for that.
+
+**Logic:**
+
+- Door closes: Turn on washing machine power
+- Door opens (for 1 minute): Turn off washing machine power
+
+**Files:**
+
+- [Power off](washingmachine-off.yaml)
+- [Power on](washingmachine-on.yaml)

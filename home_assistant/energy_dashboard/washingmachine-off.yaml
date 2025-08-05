@@ -1,0 +1,18 @@
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.door_sensor_door
+    from: "off"
+    to: "on"
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+conditions: []
+actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.eve_energy_20ebo8301
