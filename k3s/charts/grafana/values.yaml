@@ -1,7 +1,5 @@
-grafana:
+ingress:
   enabled: true
-  ingress:
-    enabled: true
-    hosts:
-      - grafana.homelab.local
+  hosts:
+    - grafana.homelab.local
 
