@@ -30,22 +30,8 @@ spec:
   project: {{ .name }}
   source:
     repoURL: {{ .source.repoURL }}
-    {{- if .source.path }}
     path: {{ .source.path }}
-    {{- end }}
-    {{- if .source.chart }}
-    chart: {{ .source.chart }}
-    {{- end }}
     targetRevision: {{ .source.targetRevision }}
-    helm:
-      {{- if .values }}
-      values: |
-        {{- toYaml .values | nindent 8 }}
-      {{- end }}
-      {{- if .valueFiles }}
-      valueFiles:
-        {{- toYaml .valueFiles | nindent 8 }}
-      {{- end }}
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ .namespace }}

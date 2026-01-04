@@ -8,7 +8,7 @@ apps:
       # Point to YOUR git repo
       repoURL: https://github.com/Kim007dus/homelab.git
       # Point to the local wrapper chart folder
-      path: k3s/apps/grafana
+      path: k3s/charts/grafana
       targetRevision: HEAD
 
   prometheus:
@@ -17,6 +17,6 @@ apps:
     namespace: metrics
     source:
       repoURL: https://github.com/Kim007dus/homelab.git
-      path: k3s/apps/kube-prometheus-stack
+      path: k3s/charts/prometheus
       targetRevision: HEAD
 
