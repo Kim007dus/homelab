@@ -1,0 +1,16 @@
+# Values for the grafana child chart
+grafana:
+  adminPassword: "changeme"
+  ingress:
+    enabled: true
+    hosts:
+      - grafana.homelab.local
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          url: http://prometheus-kube-prometheus-prometheus.metrics.svc.cluster.local:9090
+          access: proxy
+          isDefault: true

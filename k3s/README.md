@@ -76,39 +76,30 @@ Replace `<K3S_MASTER_NODE_IP>` with the IP address of your k3s master node.
 
 ## ⚙️ Daily Workflow: Managing Applications
 
-All applications are managed from the `app-of-apps/values.yaml` file.
+We use the **Wrapper Chart Pattern**. Every application (even 3rd party ones) gets its own folder in `charts/`.
 
 ### Adding a New Application
 
-1. **For Remote Charts (e.g., Grafana):** Use inline `values` to configure them.
-2. **For Local Charts:** You can use `valueFiles` to point to a file in your repo.
+1. **Create a folder** in `charts/` (e.g., `charts/my-app`).
+2. **Create `Chart.yaml`** inside it. Add the upstream chart as a dependency.
+3. **Create `values.yaml`** inside it with your configuration.
+4. **Register the app** in `app-of-apps/values.yaml` pointing to your local folder.
 
-**Example Entry in `app-of-apps/values.yaml`:**
+    **Example `app-of-apps/values.yaml` entry:**
 
-```yaml
-apps:
-  # Example 1: Remote Chart (Values must be inline)
-  grafana:
-    enabled: true
-    source:
-      repoURL: https://grafana.github.io/helm-charts
-      chart: grafana
-      targetRevision: "6.17.5"
-    values:
-      adminPassword: "secret"
+    ```yaml
+    apps:
+    my-app:
+        enabled: true
+        name: my-app
+        namespace: my-app-ns
+        source:
+        repoURL: https://github.com/Kim007dus/homelab.git
+        path: k3s/charts/my-app
+        targetRevision: HEAD
+    ```
 
-  # Example 2: Local Chart (Can use valueFiles)
-  my-local-app:
-    enabled: true
-    source:
-      repoURL: https://github.com/Kim007dus/homelab.git
-      path: k3s/charts/my-app
-      targetRevision: HEAD
-    valueFiles:
-      - "k3s/apps/my-app/values.yaml"
-```
-
-3.  Commit and push your changes. Argo CD will automatically deploy the application.
+5. Commit and push. Argo CD will detect the local chart, download the dependencies defined in `Chart.yaml`, and deploy it.
 
 ---
 
