@@ -9,8 +9,8 @@ apps:
     source:
       repoURL: https://grafana.github.io/helm-charts
       chart: grafana
-      targetRevision: "6.17.5" 
-    valueFiles:
+      targetRevision: "10.4.3" 
+    values:
       - "k3s/apps/grafana/values.yaml"
 
   prometheus:
@@ -19,8 +19,8 @@ apps:
     namespace: metrics
     source:
       repoURL: https://prometheus-community.github.io/helm-charts
-      chart: prometheus
+      chart: kube-prometheus-stack
       targetRevision: "80.10.0" 
-    valueFiles:
+    values:
       - "k3s/apps/kube-prometheus-stack/values.yaml"
       

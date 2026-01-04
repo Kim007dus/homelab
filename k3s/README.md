@@ -46,6 +46,8 @@ kubectl apply -f ./core/argocd/ingress.yaml
 
 Next, apply the **Root Application** manifest. This creates an Argo CD Application that watches your Git repository and automatically syncs all your other applications.
 
+**Important:** Ensure you have pushed your changes to Git before running this, as Argo CD needs to pull the `app-of-apps` chart from your repository.
+
 ```bash
 # Apply the root application manifest
 kubectl apply -f root-application.yaml
@@ -78,27 +80,35 @@ All applications are managed from the `app-of-apps/values.yaml` file.
 
 ### Adding a New Application
 
-1. Find the application's Helm chart repository.
-2. Create a new values file for it under `apps/`, for example `apps/new-app/values.yaml`.
-3. Add a new entry to `app-of-apps/values.yaml`:
+1. **For Remote Charts (e.g., Grafana):** Use inline `values` to configure them.
+2. **For Local Charts:** You can use `valueFiles` to point to a file in your repo.
 
-    ```yaml
-    # app-of-apps/values.yaml
-    apps:
-      # ... other apps
-      new-app:
-        enabled: true
-        name: new-app
-        namespace: new-app-namespace
-        source:
-          repoURL: https://charts.example.com/
-          chart: new-app-chart
-          targetRevision: "1.2.3"
-        valueFiles:
-          - "k3s/apps/new-app/values.yaml"
-    ```
+**Example Entry in `app-of-apps/values.yaml`:**
 
-4. Commit and push your changes. Argo CD will automatically deploy the application.
+```yaml
+apps:
+  # Example 1: Remote Chart (Values must be inline)
+  grafana:
+    enabled: true
+    source:
+      repoURL: https://grafana.github.io/helm-charts
+      chart: grafana
+      targetRevision: "6.17.5"
+    values:
+      adminPassword: "secret"
+
+  # Example 2: Local Chart (Can use valueFiles)
+  my-local-app:
+    enabled: true
+    source:
+      repoURL: https://github.com/Kim007dus/homelab.git
+      path: k3s/charts/my-app
+      targetRevision: HEAD
+    valueFiles:
+      - "k3s/apps/my-app/values.yaml"
+```
+
+3.  Commit and push your changes. Argo CD will automatically deploy the application.
 
 ---
 
