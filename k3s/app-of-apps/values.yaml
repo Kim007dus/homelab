@@ -3,11 +3,9 @@ apps:
   grafana:
     enabled: true
     name: grafana
-    namespace: dashboards
+    namespace: dashboards    
     source:
-      # Point to YOUR git repo
       repoURL: https://github.com/Kim007dus/homelab.git
-      # Point to the local wrapper chart folder
       path: k3s/charts/grafana
       targetRevision: HEAD
 
@@ -17,7 +15,6 @@ apps:
     namespace: metrics
     source:
       repoURL: https://github.com/Kim007dus/homelab.git
-      # We should do the same wrapper pattern for Prometheus
       path: k3s/charts/prometheus
       targetRevision: HEAD
 
