@@ -1,0 +1,18 @@
+# For now, let's use a simple password.
+# We will replace this with Sealed Secrets later.
+adminPassword: "changeme"
+ingress:
+  enabled: true
+  hosts:
+    - grafana.homelab.local
+
+# Automatically add the prometheus datasource
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server.monitoring.svc.cluster.local
+        access: proxy
+        isDefault: true

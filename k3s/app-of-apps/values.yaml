@@ -1,0 +1,26 @@
+# App of Apps configuration
+# Define all your applications here.
+# An AppProject and Application will be created for each entry.
+apps:
+  grafana:
+    enabled: true
+    name: grafana
+    namespace: dashboards
+    source:
+      repoURL: https://grafana.github.io/helm-charts
+      chart: grafana
+      targetRevision: "6.17.5" 
+    valueFiles:
+      - "k3s/apps/grafana/values.yaml"
+
+  prometheus:
+    enabled: true
+    name: prometheus
+    namespace: metrics
+    source:
+      repoURL: https://prometheus-community.github.io/helm-charts
+      chart: prometheus
+      targetRevision: "80.10.0" 
+    valueFiles:
+      - "k3s/apps/kube-prometheus-stack/values.yaml"
+      

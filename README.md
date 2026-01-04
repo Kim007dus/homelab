@@ -58,8 +58,8 @@ Currently, I have a standard installation on my NUC Mini PC.
 
 #### Key VMs
 
-- [**Home Assistant**](./home_assistant/README.md): Smart home automation 
-- **Kubernetes Nodes**: K8s cluster
+- [**Home Assistant**](./home_assistant/README.md): Smart home automation
+- [**Kubernetes Nodes**](./k3s/README.md): K3s cluster
 - **Linux Arch**: To gain more hands-on Linux experience, I want to install a VM from scratch with Arch Linux. *planned*
 
 ---
@@ -69,7 +69,7 @@ Currently, I have a standard installation on my NUC Mini PC.
 ### ☸️ Kubernetes Cluster
 
 - **Distribution**: K3s (lightweight)
-- **Nodes**: 1 master node + 1 worker node
+- **Nodes**: 1 master node + 2 worker nodes
 - **Storage**: planned
 - **Networking**: planned
 - **Load Balancer**: planned
@@ -103,7 +103,7 @@ Currently, I have a standard installation on my NUC Mini PC.
 
 ### 📊 Monitoring Stack
 
-- **Metrics**: Prometheus + Grafana (planned)
+- **Metrics**: Prometheus (planned)
 - **Logging**: planned
 - **Tracing**: planned
 - **Alerting**: AlertManager + Discord webhooks (planned)
@@ -143,7 +143,7 @@ Planned
 
 ### 🚀 GitOps Workflow
 
-- **FluxCD**: Kubernetes application deployment (planned)
+- **ArgoCD**: Kubernetes application deployment
 - **Git**: Source of truth for all configurations
 - **Testing**: Automated testing pipeline (planned)
 - **Rollback**: One-click rollback capability (planned)

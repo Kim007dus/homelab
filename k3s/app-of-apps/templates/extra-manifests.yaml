@@ -1,0 +1,10 @@
+{{- define "extra-manifests" -}}
+{{- range .Values.apps }}
+{{- if and .enabled .extraManifests }}
+{{- range .extraManifests }}
+---
+{{ toYaml . | nindent 0 }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end -}}

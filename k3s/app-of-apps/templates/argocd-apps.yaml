@@ -1,0 +1,59 @@
+{{- range .Values.apps }}
+{{- if .enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: {{ .name }}
+  namespace: argocd
+  # Finalizer to ensure project is deleted before the application
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: "Project for {{ .name }}"
+  sourceRepos:
+  - '*' # Or be more specific, e.g., {{ .source.repoURL | quote }}
+  destinations:
+  - namespace: {{ .namespace }}
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name }}
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .name }}
+  source:
+    repoURL: {{ .source.repoURL }}
+    {{- if .source.path }}
+    path: {{ .source.path }}
+    {{- end }}
+    {{- if .source.chart }}
+    chart: {{ .source.chart }}
+    {{- end }}
+    targetRevision: {{ .source.targetRevision }}
+    helm:
+      {{- if .values }}
+      values: |
+        {{- toYaml .values | nindent 8 }}
+      {{- end }}
+      {{- if .valueFiles }}
+      valueFiles:
+        {{- toYaml .valueFiles | nindent 8 }}
+      {{- end }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .namespace }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+{{- end }}
+{{- end }}

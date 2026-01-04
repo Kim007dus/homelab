@@ -1,0 +1,12 @@
+# Default values for kube-prometheus-stack 
+grafana:
+  enabled: false
+alertmanager:
+  enabled: true
+prometheus:
+  prometheusSpec:
+    retention: 7d
+  ingress:
+    enabled: true
+    hosts:
+      - prometheus.homelab.local

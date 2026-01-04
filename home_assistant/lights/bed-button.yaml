@@ -1,0 +1,31 @@
+alias: Nachtlampje button
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - event.smart_button_button
+    to: null
+conditions: []
+actions:
+  - choose:
+      - conditions:
+          - condition: state
+            entity_id: light.mini_smart_wi_fi_plug_2
+            state: "on"
+        sequence:
+          - action: light.turn_off
+            metadata: {}
+            data: {}
+            target:
+              entity_id: light.mini_smart_wi_fi_plug_2
+      - conditions:
+          - condition: state
+            entity_id: light.mini_smart_wi_fi_plug_2
+            state: "off"
+        sequence:
+          - action: light.turn_on
+            metadata: {}
+            data: {}
+            target:
+              entity_id: light.mini_smart_wi_fi_plug_2
+mode: single
