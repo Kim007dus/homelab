@@ -17,6 +17,7 @@ apps:
     namespace: metrics
     source:
       repoURL: https://github.com/Kim007dus/homelab.git
+      # We should do the same wrapper pattern for Prometheus
       path: k3s/charts/prometheus
       targetRevision: HEAD
 
