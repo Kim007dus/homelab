@@ -18,8 +18,6 @@ apps:
       repoURL: https://github.com/Kim007dus/homelab.git
       path: k3s/charts/prometheus
       targetRevision: HEAD
-    syncPolicy:        
-      syncOptions:
-        - ServerSideApply=true  # Required for large CRDs in kube-prometheus-stack
+
       
 
