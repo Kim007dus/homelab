@@ -18,6 +18,12 @@ apps:
       repoURL: https://github.com/Kim007dus/homelab.git
       path: k3s/charts/prometheus
       targetRevision: HEAD
-
-      
-
+  clickhouse:
+    enabled: true
+    name: clickhouse
+    namespace: databases
+    project: default
+    source:
+      repoURL: https://github.com/Kim007dus/homelab.git
+      path: k3s/charts/clickhouse
+      targetRevision: HEAD
