@@ -2,7 +2,5 @@ clickhouse:
   ingress:
     enabled: true
     hosts:
-      - host: clickhouse.homelab.local
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
+      - clickhouse.homelab.local
+
