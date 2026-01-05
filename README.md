@@ -60,6 +60,7 @@ Currently, I have a standard installation on my NUC Mini PC.
 
 - [**Home Assistant**](./home_assistant/README.md): Smart home automation
 - [**Kubernetes Nodes**](./k3s/README.md): K3s cluster
+- [**Forgejo**](./documentation/git-selfhosted.md): Self-hosted Git repository manager (replacing GitHub)
 - **Linux Arch**: To gain more hands-on Linux experience, I want to install a VM from scratch with Arch Linux. *planned*
 
 ---
@@ -103,14 +104,14 @@ Currently, I have a standard installation on my NUC Mini PC.
 
 ### 📊 Monitoring Stack
 
-- **Metrics**: Prometheus (planned)
+- **Metrics**: Prometheus
 - **Logging**: planned
 - **Tracing**: planned
-- **Alerting**: AlertManager + Discord webhooks (planned)
+- **Alerting**: AlertManager
 
 ### 📈 Key Dashboards
 
-Planned
+Grafana Dashboards
 
 ---
 
@@ -144,7 +145,7 @@ Planned
 ### 🚀 GitOps Workflow
 
 - **ArgoCD**: Kubernetes application deployment
-- [**Forgejo**](./documentation/git-selfhosted.md): Self-hosted Git repository manager (replacing GitHub)
+- **Forgejo**: Self-hosted Git repository manager (replacing GitHub)
 - **Git**: Source of truth for all configurations
 - **Testing**: Automated testing pipeline (planned)
 - **Rollback**: One-click rollback capability (planned)
