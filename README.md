@@ -144,6 +144,7 @@ Planned
 ### 🚀 GitOps Workflow
 
 - **ArgoCD**: Kubernetes application deployment
+- [**Forgejo**](./documentation/git-selfhosted.md): Self-hosted Git repository manager (replacing GitHub)
 - **Git**: Source of truth for all configurations
 - **Testing**: Automated testing pipeline (planned)
 - **Rollback**: One-click rollback capability (planned)
