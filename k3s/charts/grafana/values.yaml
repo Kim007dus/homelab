@@ -11,8 +11,22 @@ grafana:
       datasources:
         - name: Prometheus
           type: prometheus
-          # This URL assumes prometheus is in the 'monitoring' namespace
-          url: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
+          # Connect to the service defined in the prometheus chart above
+          # Format: http://<service-name>.<namespace>.svc.cluster.local:<port>
+          url: http://prometheus-prometheus.monitoring.svc.cluster.local:9090
           access: proxy
           isDefault: true
+
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: 'default'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/default
 
