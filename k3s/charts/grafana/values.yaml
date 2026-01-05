@@ -11,8 +11,8 @@ grafana:
       datasources:
         - name: Prometheus
           type: prometheus
-          # This URL assumes prometheus is in the 'metrics' namespace
-          url: http://prometheus-kube-prometheus-prometheus.metrics.svc.cluster.local:9090
+          # This URL assumes prometheus is in the 'monitoring' namespace
+          url: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
           access: proxy
           isDefault: true
 

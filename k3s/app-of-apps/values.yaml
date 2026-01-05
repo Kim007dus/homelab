@@ -1,19 +1,26 @@
 # App of Apps configuration
 apps:
-  grafana:
-    enabled: true
-    name: grafana
-    namespace: dashboards    
-    source:
-      repoURL: https://github.com/Kim007dus/homelab.git
-      path: k3s/charts/grafana
-      targetRevision: HEAD
-  prometheus:
-    enabled: true
-    name: prometheus
-    namespace: metrics
-    source:
-      repoURL: https://github.com/Kim007dus/homelab.git
-      path: k3s/charts/prometheus
-      targetRevision: HEAD
+  helm:
+    grafana:
+      enabled: true
+      name: grafana
+      namespace: monitoring
+      project: default
+      source:
+        repoURL: https://github.com/Kim007dus/homelab.git
+        path: k3s/charts/grafana
+        targetRevision: HEAD
+    prometheus:
+      enabled: true
+      name: prometheus
+      namespace: monitoring
+      project: default
+      source:
+        repoURL: https://github.com/Kim007dus/homelab.git
+        path: k3s/charts/prometheus
+        targetRevision: HEAD
+      syncPolicy:        
+        syncOptions:
+          - ServerSideApply=true  # Required for large CRDs in kube-prometheus-stack
+      
 

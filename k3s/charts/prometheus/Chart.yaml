@@ -1,6 +1,6 @@
 apiVersion: v2
 name: prometheus-wrapper
-description: Wrapper chart for Kube Prometheus Stack
+description: Wrapper chart for Prometheus (kube-prometheus-stack)
 type: application
 version: 0.1.0
 appVersion: "1.0.0"

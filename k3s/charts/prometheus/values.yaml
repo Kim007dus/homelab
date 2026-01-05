@@ -1,7 +1,8 @@
 # Values for the kube-prometheus-stack child chart
 kube-prometheus-stack:
+  fullnameOverride: prometheus
   grafana:
-    enabled: false
+    enabled: false # We are deploying Grafana separately
   alertmanager:
     enabled: true
   prometheus:
