@@ -295,7 +295,10 @@ deployment.apps/kubeflow-trainer-controller-manager   1/1     1            1    
 NAME                                                             DESIRED   CURRENT   READY   AGE
 replicaset.apps/jobset-controller-manager-79598d8d4b             1         1         1       23m
 replicaset.apps/kubeflow-trainer-controller-manager-7f8df97c8c   1         1         1       23m
-kim@kim-Latitude-5430:~$ k get all -n oauth2-proxy
+```
+
+```shell
+k get all -n oauth2-proxy
 NAME                               READY   STATUS        RESTARTS   AGE
 pod/oauth2-proxy-c696dfff5-jlc2g   1/1     Running       0          23m
 pod/oauth2-proxy-c696dfff5-jqgxb   0/1     Terminating   0          23m
