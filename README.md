@@ -134,9 +134,10 @@ Grafana Dashboards
 
 ### 💾 Backup Strategy
 
-- **3-2-1 Rule**: 3 copies, 2 different media, 1 offsite
-- **VM Backups**: Proxmox Backup Server (planned)
-- **Application Data**: Home Assistant backup to personal cloud, rest is planned
+**Location**: [Documentation about backups](./backups/README.md)
+
+- **VM Backups**: Proxmox VE Host → Creates VM backup → Stores to mounted rclone → TransIP Stack
+- **Application Data**: Home Assistant backup to TransIP Stack
 
 ---
 
