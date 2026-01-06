@@ -2,5 +2,14 @@ clickhouse:
   ingress:
     enabled: true
     hosts:
-      - clickhouse.homelab.local
+      - name: clickhouse.homelab.local
+        path: /
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      traefik.ingress.kubernetes.io/service.serversscheme: http
+
+  service:
+    type: ClusterIP
+    ports:
+      http: 8123
 
