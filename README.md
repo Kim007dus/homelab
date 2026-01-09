@@ -61,7 +61,8 @@ Currently, I have a standard installation on my NUC Mini PC.
 - [**Home Assistant**](./home_assistant/README.md): Smart home automation
 - [**Kubernetes Nodes**](./k3s/README.md): K3s cluster
 - [**Forgejo**](./documentation/git-selfhosted.md): Self-hosted Git repository manager (replacing GitHub)
-- **Linux Arch**: To gain more hands-on Linux experience, I want to install a VM from scratch with Arch Linux. *planned*
+- [**RHEL 10**](./documentation/rhel.md): RHCSA certification study lab
+- **Linux Arch**: Planned installation for deep-dive Linux experience
 
 ---
 
