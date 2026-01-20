@@ -94,10 +94,11 @@ Currently, I have a standard installation on my NUC Mini PC.
 **Current Playbooks:**
 
 - **SSL Certificate Management**: Self-signed CA for homelab services
+- **ArgoCD Bootstrap Deployment**: Deployment manifests with kubect apply
 
 **Planned Additions:**
 
-- ArgoCD deployment automation
+- ArgoCD deployment automation with HELM.
 
 ---
 
