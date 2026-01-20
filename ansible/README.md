@@ -57,6 +57,28 @@ ansible-playbook -i inventories/hosts.ini ssl_certificate_management.yml --limit
 
 Restart Proxmox: `systemctl restart pveproxy`
 
+### Argo CD Bootstrap - kubectl apply method
+
+Installs Argo CD on the k3s cluster, applies the Traefik ingress, and bootstraps the GitOps root application defined in [ansible_install_argocd/install_argocd.yml](ansible_install_argocd/install_argocd.yml).
+
+**Highlights:**
+
+- Creates the argocd namespace and applies the upstream Argo CD manifest
+- Patches argocd-server for TLS termination at the ingress
+- Waits for core pods to become ready before rolling out the root application
+- Prints the initial admin password on first install (optional for upgrades)
+
+**Usage:**
+
+```bash
+cd ansible_install_argocd
+ansible-playbook install_argocd.yml 
+```
+
+### Argo CD Bootstrap - HELM
+
+Work in progress
+
 ## 📁 Repository Structure
 
 ```
@@ -80,9 +102,6 @@ ansible/
         └── proxmox.yml                     # Proxmox specific variables - not in this repo
 ```
 
-## 🚀 Planned Extensions
-
-- [ ] **ArgoCD Deployment on my cluster**: GitOps for Kubernetes workloads
 
 ## 🔧 Prerequisites
 

@@ -1,0 +1,118 @@
+---
+- name: Bootstrap Argo CD
+  hosts: localhost
+  gather_facts: false
+  collections:
+    - kubernetes.core
+  vars:
+    kubeconfig: "{{ lookup('env', 'KUBECONFIG') | default('~/.kube/config', true) }}"
+    argocd_namespace: argocd
+    argo_cd_install_manifest: https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+    repo_root: "{{ (playbook_dir | dirname) | dirname }}"
+    argocd_ingress_manifest: "{{ repo_root }}/k3s/core/argocd/ingress.yaml"
+    root_application_manifest: "{{ repo_root }}/k3s/root-application.yaml"
+  module_defaults:
+    kubernetes.core.k8s:
+      kubeconfig: "{{ kubeconfig }}"
+      state: present
+    kubernetes.core.k8s_info:
+      kubeconfig: "{{ kubeconfig }}"
+    kubernetes.core.k8s_json_patch:
+      kubeconfig: "{{ kubeconfig }}"
+  tasks:
+    - name: Ensure argocd namespace exists
+      kubernetes.core.k8s:
+        definition:
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            name: "{{ argocd_namespace }}"
+
+    - name: Wait for argocd namespace to become available
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Namespace
+        name: "{{ argocd_namespace }}"
+      register: argocd_namespace_info
+      until: argocd_namespace_info.resources | length > 0
+      retries: 10
+      delay: 6
+
+    - name: Install Argo CD from upstream manifest
+      kubernetes.core.k8s:
+        definition: "{{ lookup('url', argo_cd_install_manifest, split_lines=False) | from_yaml_all | select('truthy') | list }}"
+        namespace: "{{ argocd_namespace }}"
+
+    - name: Wait for argocd-server deployment to exist
+      kubernetes.core.k8s_info:
+        namespace: "{{ argocd_namespace }}"
+        kind: Deployment
+        name: argocd-server
+      register: argocd_server_info
+      until: argocd_server_info.resources | length > 0
+      retries: 20
+      delay: 15
+
+    - name: Ensure argocd-server runs without internal TLS
+      kubernetes.core.k8s_json_patch:
+        namespace: "{{ argocd_namespace }}"
+        kind: Deployment
+        name: argocd-server
+        patch:
+          - op: add
+            path: /spec/template/spec/containers/0/args/-
+            value: --insecure
+      when: "'--insecure' not in (argocd_server_info.resources[0].spec.template.spec.containers[0].args | default([]))"
+
+    - name: Wait for Argo CD pods to be running
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Pod
+        namespace: "{{ argocd_namespace }}"
+      register: argocd_pods
+      until: argocd_pods.resources | length > 0 and (argocd_pods.resources | map(attribute='status.phase') | list | difference(['Running']) | length == 0)
+      retries: 30
+      delay: 10
+
+    - name: Verify Argo CD ingress manifest exists
+      ansible.builtin.stat:
+        path: "{{ argocd_ingress_manifest }}"
+      register: argocd_ingress_stat
+
+    - name: Abort if Argo CD ingress manifest missing
+      ansible.builtin.fail:
+        msg: "Ingress manifest not found at {{ argocd_ingress_manifest }}"
+      when: not argocd_ingress_stat.stat.exists
+
+    - name: Apply Argo CD ingress
+      kubernetes.core.k8s:
+        src: "{{ argocd_ingress_manifest }}"
+
+    - name: Verify root application manifest exists
+      ansible.builtin.stat:
+        path: "{{ root_application_manifest }}"
+      register: root_app_stat
+
+    - name: Abort if root application manifest missing
+      ansible.builtin.fail:
+        msg: "Root application manifest not found at {{ root_application_manifest }}"
+      when: not root_app_stat.stat.exists
+
+    - name: Apply Argo CD root application
+      kubernetes.core.k8s:
+        src: "{{ root_application_manifest }}"
+
+    - name: Wait for Argo CD admin secret to exist
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Secret
+        namespace: "{{ argocd_namespace }}"
+        name: argocd-initial-admin-secret
+      register: argocd_admin_secret
+      until: argocd_admin_secret.resources | length > 0
+      retries: 20
+      delay: 6
+
+    - name: Display Argo CD initial admin password
+      ansible.builtin.debug:
+        msg: "Argo CD admin password: {{ argocd_admin_secret.resources[0].data.password | b64decode }}"
